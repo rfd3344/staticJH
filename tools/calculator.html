@@ -35,20 +35,18 @@ function handleKeyPress(dom) {
 	var value = dom.value;
 	var lines = value.split(String.fromCharCode(10));
 
-	var displayArea = lines.reduce((acc, item) => {
-		if(!item.trim()) return acc;
-		
-		var [varable, expression] = item.split('=');
+	var displayArea = lines.map((item) => {
+		if(!item.trim()) return '';
+		var [variable] = item.split('=');
+
 		try {
-			var evalRes = eval(expression)
-			return `${acc} ${varable} = ${evalRes} <br/>`;
-		} catch(e) {
-			return acc;
-		}
+			var evalRes = eval(item)
+			return `${variable} = ${evalRes}`;
+		} catch(e) {}
 
-	}, '')
+	})
 
-	resultDom.innerHTML = displayArea
+	resultDom.innerHTML = displayArea.join('<br/>')
 
 }
 
