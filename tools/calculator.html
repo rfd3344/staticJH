@@ -1,0 +1,55 @@
+
+<section>
+	<textarea onkeyup="handleKeyPress(this)">a = 10</textarea>
+	<div id="result">a = 10</div>
+</section>
+
+
+<style type="text/css">
+section {
+	display: flex;
+	margin-top: 20px;
+}
+section * {
+	width: 50%; 
+	font-size: 20px;
+	font-family: monospace;
+}
+textarea {
+	height: 90vh;
+	background: #d4eddb; 
+
+}
+#result {
+	padding:8px; 
+	background: #FBF0D9;
+}
+</style>
+<script type="text/javascript">
+
+var textareaDom = document.querySelector('textarea');
+var resultDom = document.querySelector('#result');
+
+
+function handleKeyPress(dom) {
+	var value = dom.value;
+	var lines = value.split(String.fromCharCode(10));
+
+	var displayArea = lines.reduce((acc, item) => {
+		if(!item.trim()) return acc;
+		
+		var [varable, expression] = item.split('=');
+		try {
+			var evalRes = eval(expression)
+			return `${acc} ${varable} = ${evalRes} <br/>`;
+		} catch(e) {
+			return acc;
+		}
+
+	}, '')
+
+	resultDom.innerHTML = displayArea
+
+}
+
+</script>
