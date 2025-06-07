@@ -1,1 +1,3 @@
 # static resources
+
+# temp notes
